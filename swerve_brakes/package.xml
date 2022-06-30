@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>swerve_brakes</name>
+  <version>0.0.0</version>
+  <description>The swerve_brakes package</description>
+
+  <maintainer email="pankertj@ethz.ch">Johannes Pankert</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>rosserial_arduino</exec_depend>
+  <depend>swerve_msgs</depend>
+</package>

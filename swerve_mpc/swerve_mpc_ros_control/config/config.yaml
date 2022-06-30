@@ -1,0 +1,27 @@
+swerve_mpc_ros_control:
+  type        : "swerve_mpc_ros_control/SwerveMpcRosControl"
+  steer_joint_names:
+    - left_back_steer_joint
+    - left_front_steer_joint
+    - right_back_steer_joint
+    - right_front_steer_joint
+
+  wheel_joint_names:
+    - left_back_wheel_joint
+    - left_front_wheel_joint
+    - right_back_wheel_joint
+    - right_front_wheel_joint
+
+  brake_joint_names:
+    - left_back_brake_joint
+    - left_front_brake_joint
+    - right_back_brake_joint
+    - right_front_brake_joint
+
+  arm_joint_names:
+    - SH_ROT
+    - SH_FLE
+    - EL_FLE
+    - EL_ROT
+    - WR_FLE
+    - WR_ROT

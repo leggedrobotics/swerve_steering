@@ -1,0 +1,15 @@
+<launch>
+  <arg name="test"        default="false"/>
+  <arg name="rviz"        default="true"/>
+  <arg name="rvizconfig"  default="$(find swerve_mpc)/rviz/swerve.rviz"/>
+
+  <param name="use_gui" value="true"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher">
+    <remap from="robot_description" to ="/swerve_mpc/robot_description"/>
+  </node>
+  <node if="$(arg test)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node pkg="rviz" type="rviz" name="rviz" args="-d $(arg rvizconfig)" output="screen" if="$(arg rviz)">
+    <remap from="robot_description" to ="/swerve_mpc/robot_description"/>
+  </node>
+</launch>

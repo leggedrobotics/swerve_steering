@@ -1,0 +1,6 @@
+<library path="lib/libswerve_mpc_ros_control">
+
+  <class name="swerve_mpc_ros_control/SwerveMpcRosControl" type="swerve_mpc_ros_control::SwerveMpcRosControl" base_class_type="controller_interface::ControllerBase">
+  </class>
+
+</library>

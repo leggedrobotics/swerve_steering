@@ -1,0 +1,45 @@
+<launch>
+  <arg name="ns" default="swerve_base" />
+  <arg name="rviz" default="false" />
+  <arg name="task_name" default="mpc" />
+  <arg name="dummy_visualization" default="true" />
+  <arg name="action_server_config" default="$(find swerve_mpc)/config/task_space_action_server/dummy_visualization_swerve_base.yaml" />
+
+  <!-- The URDF model of the robot -->
+  <arg name="urdf_path" default="$(find swerve_description)/urdf/swerve.urdf.xacro" />
+  <!-- The task file for the mpc. -->
+  <arg name="taskFile" default="$(find swerve_mpc)/config/mpc/task.info" />
+  <!-- The library folder to generate CppAD codegen into -->
+  <arg name="libFolder" default="$(find swerve_mpc)/auto_generated" />
+
+  <!-- make the files into global parameters -->
+  <param name="/swerve_mpc/robot_description" command="$(find xacro)/xacro $(arg urdf_path)"/>
+  <param name="taskFile" value="$(arg taskFile)" />
+  <param name="libFolder" value="$(arg libFolder)" />
+
+  <group if="$(arg dummy_visualization)">
+    <include file="$(find swerve_mpc)/launch/visualize.launch">
+      <arg name="rvizconfig" value="$(find swerve_mpc)/rviz/dummy_swerve.rviz" />
+    </include>
+  </group>
+
+  <group unless="$(arg dummy_visualization)">
+    <node pkg="swerve_mpc" type="joy_reference.py" name="mpc_joy_reference" output="screen">
+      <remap from="command_path" to="/mission_control/planned_path" />
+      <remap from="cmd_vel" to="/cmd_vel" />
+    </node>
+  </group>
+
+  <group ns="$(arg ns)">
+    <group if="$(arg dummy_visualization)">
+      <node pkg="swerve_mpc" type="swerve_dummy_mrt_node" name="swerve_dummy_mrt_node" output="screen" args="$(arg task_name)" launch-prefix="" />
+    </group>
+
+    <node pkg="swerve_mpc" type="swerve_mpc_node" name="swerve_mpc_node" output="screen" args="$(arg task_name)" launch-prefix="" />
+
+    <node name="task_space_action_server" pkg="trapezoidal_tracker" type="task_space_action_server_node" output="screen" launch-prefix="">
+      <rosparam command="load" file="$(arg action_server_config)" />
+    </node>
+  </group>
+
+</launch>

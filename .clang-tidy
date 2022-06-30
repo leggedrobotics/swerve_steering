@@ -1,0 +1,42 @@
+---
+Checks: '
+cppcoreguidelines-*,
+-cppcoreguidelines-pro-type-vararg,
+-cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+-cppcoreguidelines-special-member-functions,
+-cppcoreguidelines-pro-bounds-constant-array-index,
+-cppcoreguidelines-owning-memory,
+google-*,
+-google-runtime-references,
+-google-runtime-int,
+-google-readability-function-size,
+modernize-*,
+-modernize-make-unique,
+-modernize-use-default-member-init,
+-modernize-use-trailing-return-type,
+-clang-analyzer-*,
+-clang-diagnostic-*,
+readability-*,
+-readability-named-parameter,
+-readability-redundant-member-init,
+-readability-else-after-return,
+-readability-function-size,
+-readability-avoid-const-params-in-decls'
+
+CheckOptions:
+  - key:             readability-identifier-naming.ClassCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.EnumCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.FunctionCase
+    value:           camelBack
+  - key:             readability-identifier-naming.MemberCase
+    value:           camelBack
+  - key:             readability-identifier-naming.MemberSuffix
+    value:           _
+  - key:             readability-identifier-naming.MethodCase
+    value:           camelBack
+  - key:             readability-identifier-naming.NamespaceCase
+    value:           lower_case
+  - key:             readability-identifier-naming.StructCase
+    value:           aNy_CasE

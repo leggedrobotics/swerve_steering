@@ -1,0 +1,29 @@
+<launch>
+  <arg name="ns" default="swerve_base" />
+
+  <arg name="mpc" default="true" />
+  <arg name="model" default="$(find swerve_description)/urdf/swerve.urdf.xacro" />
+  <arg name="gazebo_gui" default="false" />
+
+  <include file="$(find swerve_control)/launch/highlevel_controller.launch">
+    <arg name="ns" value="$(arg ns)" />
+  </include>
+
+  <!-- launch mpc node -->
+  <group if="$(arg mpc)">
+    <include file="$(find swerve_mpc)/launch/swerve_mpc.launch">
+      <arg name="ns" value="$(arg ns)" />
+      <arg name="dummy_visualization" value="false" />
+      <arg name="action_server_config" value="$(find swerve_mpc)/config/task_space_action_server/swerve_base.yaml" />
+    </include>
+  </group>
+
+  <include file="$(find swerve_description)/launch/gazebo.launch">
+    <arg name="model" value="$(arg model)" />
+    <arg name="gui" default="$(arg gazebo_gui)" />
+    <arg name="ns" value="$(arg ns)" />
+  </include>
+
+  <include file="$(find swerve_control)/launch/opc.launch"/>
+
+</launch>

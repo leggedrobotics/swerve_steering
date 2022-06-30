@@ -1,0 +1,274 @@
+model_information {
+  armPresent     false      // false: swerve_base, true: swerve_base + arm
+  
+  ; end-effector frame of the robot (from URDF)
+  eeFrame                  "base_link"
+}
+
+model_settings
+{
+  usePreComputation             false
+  recompileLibraries            true
+}
+
+; DDP settings
+ddp
+{
+  algorithm                     ILQR
+
+  nThreads                      4
+
+  maxNumIterations              10
+  minRelCost                    0.1
+  constraintTolerance           1e-3
+
+  displayInfo                   false
+  displayShortSummary           false
+  checkNumericalStability       false
+
+  AbsTolODE                     1e-5
+  RelTolODE                     1e-3
+  timeStep                      1e-3
+  maxNumStepsPerSecond          100000
+  backwardPassIntegratorType    ODE45
+
+  inequalityConstraintMu        100.0
+  inequalityConstraintDelta     1.1
+
+  preComputeRiccatiTerms        true
+  useNominalTimeForBackwardPass false
+
+  useFeedbackPolicy             false
+
+  strategy                      LINE_SEARCH
+  lineSearch
+  {
+    minStepLength                 1e-2
+    maxStepLength                 1.0
+    hessianCorrectionStrategy     DIAGONAL_SHIFT
+    hessianCorrectionMultiple     1e-3
+  }
+}
+
+; Rollout settings
+rollout
+{
+  AbsTolODE                     1e-5
+  RelTolODE                     1e-3
+  timeStep                      1e-2
+  maxNumStepsPerSecond          100000
+  checkNumericalStability       false
+}
+
+; MPC settings
+mpc
+{
+  timeHorizon                    10.0
+  numPartitions                  1
+
+  runtimeMaxNumIterations        1
+  initMaxNumIterations           10
+
+  runtimeMaxStepLength           1.0
+  runtimeMinStepLength           1e-2
+  initMaxStepLength              1.0
+  initMinStepLength              1e-2
+
+  debugPrint                     false
+  coldStart                      false
+
+  useParallelRiccatiSolver       true  ; use disjoint riccati solver in MP case and recedingHorizon fashion
+
+  solutionTimeWindow             10.0   ; [s]
+
+  mpcDesiredFrequency            50   ; [Hz]
+  mrtDesiredFrequency            400   ; [Hz]
+}
+
+; initial state
+initialState
+{
+  (0,0)  0.0  ; position x
+  (1,0)  0.0  ; position y
+  (2,0)  0.0  ; position z
+  (3,0)  0.0  ; orientation qx
+  (4,0)  0.0  ; orientation qy
+  (5,0)  0.0  ; orientation qz
+  (6,0)  1.0  ; orientation qw
+  (7,0)  0.0  ; lb brake
+  (8,0)  0.0  ; lb steer
+  (9,0)  0.0  ; lb wheel
+  (10,0)  0.0  ; lf brake
+  (11,0)  0.0  ; lf steer
+  (12,0)  0.0  ; lf wheel
+  (13,0)  0.0  ; rb brake
+  (14,0)  0.0  ; rb steer
+  (15,0)  0.0  ; rb wheel
+  (16,0)  0.0  ; rf brake
+  (17,0)  0.0  ; rf steer
+  (18,0)  0.0  ; rf wheel
+  (19,0)  0.0  ; rf wheel
+  (20,0)  0.0  ; rf wheel
+  (21,0)  0.0  ; rf wheel
+  (22,0)  0.0  ; rf wheel
+  (23,0)  0.0  ; rf wheel
+  (24,0)  0.0  ; rf wheel
+}
+
+inputCost
+{
+  ; control weight matrix
+  R
+  {
+    scaling 1e-1
+
+    (0,0)  5.0  ; x velocity
+    (1,1)  5.0  ; y velocity
+    (2,2)  5.0  ; turning velocity
+    (3,3)  10.0  ; lb brake
+    (4,4)  5.0  ; lb steer
+    (5,5)  5.0  ; lb wheel
+    (6,6)  10.0  ; lf brake
+    (7,7)  5.0  ; lf steer
+    (8,8)  5.0  ; lf wheel
+    (9,9)  10.0  ; rb brake
+    (10,10)  5.0  ; rb steer
+    (11,11)  5.0  ; rb wheel
+    (12,12)  10.0  ; rf brake
+    (13,13)  5.0  ; rf steer
+    (14,14)  5.0  ; rf wheel
+    (15,15)  5.0  ; sh rot
+    (16,16)  10.0  ; sh fle
+    (17,17)  10.0  ; el fle
+    (18,18)  10.0  ; el rot
+    (19,19)  10.0  ; wr fle
+    (20,20)  10.0  ; wr rot
+  }
+}
+
+legsCost
+{
+  ; control weight matrix
+  Q
+  {
+    scaling 1e-1
+
+    (0,0)  50.0  ; lb leg
+    (1,1)  50.0  ; lf leg
+    (2,2)  50.0  ; rb leg
+    (3,3)  50.0  ; rf leg
+  }
+}
+
+endEffector
+{
+  name "base_link" ; name defined in the URDF
+
+  ; end effector quadratic penalty scaling
+  muPosition  250.0
+  muOrientation  500.0
+}
+
+quadraticPenalty
+{
+  wheelRolling 1000
+  nominalSteerActive 1 ; 0 for deactive, 1 for active, 2 for conditionally active when the steering joints are close to the limits
+  nominalSteerState 0.5
+  nominalArmState 0.1
+}
+
+jointVelocityLimits
+{
+  lowerBound
+  {
+    (0,0) -1.0  ; x velocity
+    (1,0) -1.0  ; y velocity
+    (2,0) -1.0  ; turning velocity
+    (3,0) -0.1  ; lb brake
+    (4,0) -5.0  ; lb steer
+    (5,0) -10  ; lb wheel
+    (6,0) -0.1  ; lf brake
+    (7,0) -5.0  ; lf steer
+    (8,0) -10  ; lf wheel
+    (9,0) -0.1  ; rb brake
+    (10,0) -5.0  ; rb steer
+    (11,0) -10  ; rb wheel
+    (12,0) -0.1  ; rf brake
+    (13,0) -5.0  ; rf steer
+    (14,0) -10  ; rf wheel
+    (15,0) -0.5  ; sh rot
+    (16,0) -0.5  ; sh fle
+    (17,0) -0.5  ; el fle
+    (18,0) -0.5  ; el rot
+    (19,0) -0.5  ; wr fle
+    (20,0) -0.5  ; wr rot
+  }
+
+  upperBound
+  {
+    (0,0) 1.0  ; x velocity
+    (1,0) 1.0  ; y velocity
+    (2,0) 1.0  ; turning velocity
+    (3,0) 0.1  ; lb brake
+    (4,0) 5.0  ; lb steer
+    (5,0) 10  ; lb wheel
+    (6,0) 0.1  ; lf brake
+    (7,0) 5.0  ; lf steer
+    (8,0) 10  ; lf wheel
+    (9,0) 0.1  ; rb brake
+    (10,0) 5.0  ; rb steer
+    (11,0) 10  ; rb wheel
+    (12,0) 0.1  ; rf brake
+    (13,0) 5.0  ; rf steer
+    (14,0) 10  ; rf wheel
+    (15,0) 0.5  ; sh rot
+    (16,0) 0.5  ; sh fle
+    (17,0) 0.5  ; el fle
+    (18,0) 0.5  ; el rot
+    (19,0) 0.5  ; wr fle
+    (20,0) 0.5  ; wr rot
+  }
+
+  ; relaxed log barrier mu
+  mu  0.01
+
+  ; relaxed log barrier delta
+  delta  1e-3
+}
+
+jointLimits
+{
+  lowerLimit
+  {
+    (0,0) -3.14  ; lb steer
+    (1,0) -3.14  ; lf steer
+    (2,0) -3.14  ; rb steer
+    (3,0) -3.14  ; rf steer
+    (4,0) -6.1  ; sh rot
+    (5,0) -3.0  ; sh fle
+    (6,0) -2.4  ; el fle
+    (7,0) -6.1  ; el rot
+    (8,0) -2.2  ; wr fle
+    (9,0) -4.6  ; wr rot
+  }
+
+  upperLimit
+  {
+    (0,0) 3.14  ; lb steer
+    (1,0) 3.14  ; lf steer
+    (2,0) 3.14  ; rb steer
+    (3,0) 3.14  ; rf steer
+    (4,0) 6.1  ; sh rot
+    (5,0) 0.0  ; sh fle
+    (6,0) 2.4  ; el fle
+    (7,0) 6.1  ; el rot
+    (8,0) 2.2  ; wr fle
+    (9,0) 4.6  ; wr rot
+  }
+
+  ; relaxed log barrier mu
+  mu  0.01
+
+  ; relaxed log barrier delta
+  delta  1e-3
+}

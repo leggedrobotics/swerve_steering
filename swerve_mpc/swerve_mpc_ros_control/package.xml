@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>swerve_mpc_ros_control</name>
+  <version>0.0.1</version>
+  <description>The Swerve MPC Controller package</description>
+
+  <maintainer email="dbaret@ethz.ch">Davide Baret</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>controller_interface</depend>
+  <depend>hardware_interface</depend>
+  <depend>swerve_mpc</depend>
+  <depend>swerve_msgs</depend>
+  <depend>ddynamic_reconfigure</depend>
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <controller_interface plugin="${prefix}/swerve_mpc_ros_control_plugin.xml"/>
+  </export>
+</package>

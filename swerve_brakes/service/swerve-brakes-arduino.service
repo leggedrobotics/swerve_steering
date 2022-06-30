@@ -1,0 +1,15 @@
+[Unit]
+Description=Swerve_steering brake service
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=integration
+EnvironmentFile=/etc/robot/ros.conf
+KillSignal=SIGINT
+ExecStart=/bin/bash -c "source /opt/ros/${ROS_DISTRIBUTION}/setup.bash && source /home/integration/workspace/devel/setup.bash && stdbuf -oL rosrun rosserial_arduino serial_node.py __name:=arduino_brakes _port:=/dev/ttyACM0"
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

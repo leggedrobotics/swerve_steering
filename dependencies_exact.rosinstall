@@ -1,0 +1,21 @@
+repositories:
+  cmake_clang_tools:
+    type: git
+    url: https://github.com/leggedrobotics/cmake_clang_tools.git
+    version: ba3bab0ec46a2da79c97e3613fc166c99f9c4ed1
+  hpp-fcl:
+    type: git
+    url: https://github.com/leggedrobotics/hpp-fcl.git
+    version: 8be41cba990eaef717bd4d2b4a7bb05c8ae66ccd
+  manipulation_tools:
+    type: git
+    url: https://github.com/leggedrobotics/manipulation_tools.git
+    version: 7c36ca80d6bc7b02d9f81262ca30247c91cb6c2c
+  ocs2:
+    type: git
+    url: https://github.com/leggedrobotics/ocs2.git
+    version: 399d3fad27b4a49e48e075a544f2f717944c5da9
+  pinocchio:
+    type: git
+    url: https://github.com/leggedrobotics/pinocchio.git
+    version: b86197e04265892c32966736000a01ee4862a060

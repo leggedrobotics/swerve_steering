@@ -1,0 +1,33 @@
+<launch>
+
+  <arg name="max_linear_velocity" default="0.4" />
+  <arg name="max_angular_velocity" default="0.4" />
+
+  <arg name="max_linear_turbo_velocity" default="0.8" />
+  <arg name="max_angular_turbo_velocity" default="0.8" />
+
+ <!-- joy node -->
+  <node respawn="true" pkg="joy"
+        type="joy_node" name="joy" >
+    <param name="dev" type="string" value="/dev/input/js0" />
+    <param name="deadzone" value="0.1" />
+    <param name="autorepeat_rate" value="20" />
+  </node>
+
+ <!-- Axes -->
+  <param name="axis_linear_x" value="1" type="int"/>
+  <param name="axis_linear_y" value="0" type="int"/>
+  <param name="scale_linear" value="$(arg max_linear_velocity)" type="double"/>
+  <param name="scale_linear_turbo" value="$(arg max_linear_turbo_velocity)" type="double"/>
+  <param name="axis_angular" value="3" type="int"/>
+  <param name="scale_angular" value="$(arg max_angular_velocity)" type="double"/>
+  <param name="scale_angular_turbo" value="$(arg max_angular_turbo_velocity)" type="double"/>
+  <param name="enable_button" value="4" type="int"/>
+  <param name="enable_turbo_button" value="5" type="int"/>
+  <param name="start_button" value="7" type="int"/>
+  <param name="select_button" value="6" type="int"/>
+
+  <remap from="cmd_vel" to="/opc_twist"/>
+  <node pkg="strafe_joy" type="strafe_joy" name="strafe_teleop"/>
+
+</launch>
