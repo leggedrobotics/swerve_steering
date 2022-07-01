@@ -121,7 +121,7 @@ Contains code for controlling magnetic brakes and reading brake encoders with a 
 
 ## License
 BSD-3-Clause
-Copyright (c) 2022 Johannes Pankert <pankertj@ethz.ch>
+Copyright (c) 2022 Johannes Pankert <pankertj@ethz.ch>, Davide Baret, Lukasz Pietrasik
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
