@@ -1,5 +1,27 @@
-# swerve_base
-Code for the RA-L and IROS submission "Design and Motion Planning for a Reconfigurable Robotic Base".
+# Swerve Steering
+Code for the RA-L and IROS publication "Design and Motion Planning for a Reconfigurable Robotic Base".
+The paper has been accepted but not published yet.
+You can find a preprint on [arxiv](https://arxiv.org/abs/2206.15298).
+Preliminary bibtex snippet to cite our work:
+
+```
+@misc{https://doi.org/10.48550/arxiv.2206.15298,
+  doi = {10.48550/ARXIV.2206.15298},
+  
+  url = {https://arxiv.org/abs/2206.15298},
+  
+  author = {Pankert, Johannes and Valsecchi, Giorgio and Baret, Davide and Zehnder, Jon and Pietrasik, Lukasz L. and Bjelonic, Marko and Hutter, Marco},
+  
+  title = {Design and Motion Planning for a Reconfigurable Robotic Base},
+  
+  publisher = {arXiv},
+  
+  year = {2022},
+}
+```
+
+Videos of the hardware experiments are on [youtube](https://youtu.be/qBY4zovf2vo).
+
 ## Docker
 The easiest way to run a demo on your local machine is to use docker.
 Build a docker image by cloning the repository and running the following command:
