@@ -1,4 +1,4 @@
-# Swerve Steering
+# Swerve MPC
 Code for the RA-L and IROS publication "Design and Motion Planning for a Reconfigurable Robotic Base".
 The paper has been accepted but not published yet.
 You can find a preprint on [arxiv](https://arxiv.org/abs/2206.15298).
@@ -24,9 +24,13 @@ Videos of the hardware experiments are on [youtube](https://youtu.be/qBY4zovf2vo
 
 ## Docker
 The easiest way to run a demo on your local machine is to use docker.
-Build a docker image by cloning the repository and running the following command:
+Fetch the image from dockerhub with:
 ```
-docker image build -t swerve_mpc:v0.1 .
+docker pull rslethz/swerve_mpc:v0.1
+```
+Alternatively, build a docker image by cloning this repository and running the following command:
+```
+docker image build -t rslethz/swerve_mpc:v0.1 .
 ```
 Run the simulation with this command:
 ```
@@ -35,7 +39,7 @@ docker container run -it --rm --name swerve_simulation_demo \
  -e DISPLAY=$DISPLAY \
  -v /tmp/.X11-unix:/tmp/.X11-unix \
  --device /dev/dri \
- swerve_mpc:v0.1 /bin/bash -c "source devel/setup.bash && roslaunch swerve_control simulation.launch"
+ rslethz/swerve_mpc:v0.1 /bin/bash -c "source devel/setup.bash && roslaunch swerve_control simulation.launch"
 ```
 If a joystick is connected to the port `/dev/input/js0`, you can give the container access to it:
 ```
@@ -44,7 +48,7 @@ docker container run -it --rm --name swerve_simulation_demo \
  -e DISPLAY=$DISPLAY \
  -v /tmp/.X11-unix:/tmp/.X11-unix \
  --device /dev/dri --device /dev/input/js0 \
- swerve_mpc:v0.1 /bin/bash -c "source devel/setup.bash && roslaunch swerve_control simulation.launch"
+ rslethz/swerve_mpc:v0.1 /bin/bash -c "source devel/setup.bash && roslaunch swerve_control simulation.launch"
 ```
  
 The reconfiguration scripts can be called as follows:
@@ -115,7 +119,6 @@ Message definitions for steering controllers and brakes
 #### swerve_brakes
 Contains code for controlling magnetic brakes and reading brake encoders with a micro controller
 
-
 ## License
 BSD-3-Clause
 Copyright (c) 2022 Johannes Pankert <pankertj@ethz.ch>
@@ -144,3 +147,4 @@ INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
 CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
 ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 POSSIBILITY OF SUCH DAMAGE.
+
