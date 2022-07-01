@@ -26,11 +26,11 @@ Videos of the hardware experiments are on [youtube](https://youtu.be/qBY4zovf2vo
 The easiest way to run a demo on your local machine is to use docker.
 Fetch the image from dockerhub with:
 ```
-docker pull rslethz/swerve_mpc:v0.1
+docker pull rslethz/swerve_mpc
 ```
 Alternatively, build a docker image by cloning this repository and running the following command:
 ```
-docker image build -t rslethz/swerve_mpc:v0.1 .
+docker image build -t rslethz/swerve_mpc .
 ```
 Run the simulation with this command:
 ```
@@ -39,7 +39,7 @@ docker container run -it --rm --name swerve_simulation_demo \
  -e DISPLAY=$DISPLAY \
  -v /tmp/.X11-unix:/tmp/.X11-unix \
  --device /dev/dri \
- rslethz/swerve_mpc:v0.1 /bin/bash -c "source devel/setup.bash && roslaunch swerve_control simulation.launch"
+ rslethz/swerve_mpc /bin/bash -c "source devel/setup.bash && roslaunch swerve_control simulation.launch"
 ```
 If a joystick is connected to the port `/dev/input/js0`, you can give the container access to it:
 ```
@@ -48,7 +48,7 @@ docker container run -it --rm --name swerve_simulation_demo \
  -e DISPLAY=$DISPLAY \
  -v /tmp/.X11-unix:/tmp/.X11-unix \
  --device /dev/dri --device /dev/input/js0 \
- rslethz/swerve_mpc:v0.1 /bin/bash -c "source devel/setup.bash && roslaunch swerve_control simulation.launch"
+ rslethz/swerve_mpc /bin/bash -c "source devel/setup.bash && roslaunch swerve_control simulation.launch"
 ```
  
 The reconfiguration scripts can be called as follows:
