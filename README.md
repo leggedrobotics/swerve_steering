@@ -1,22 +1,28 @@
 # Swerve MPC
+![ animation of swerve steering robot, driving and reconfiguring ](swerve_animation.gif)
+
 Code for the RA-L and IROS publication "Design and Motion Planning for a Reconfigurable Robotic Base".
-The paper has been accepted but not published yet.
-You can find a preprint on [arxiv](https://arxiv.org/abs/2206.15298).
-Preliminary bibtex snippet to cite our work:
+
+The full text of the paper is on [IEEE Xplore](https://ieeexplore.ieee.org/document/9817632).
+
+You can find the accepted version on [arxiv](https://arxiv.org/abs/2206.15298).
+
+Bibtex snippet to cite our work:
 
 ```
-@misc{https://doi.org/10.48550/arxiv.2206.15298,
-  doi = {10.48550/ARXIV.2206.15298},
-  
-  url = {https://arxiv.org/abs/2206.15298},
-  
-  author = {Pankert, Johannes and Valsecchi, Giorgio and Baret, Davide and Zehnder, Jon and Pietrasik, Lukasz L. and Bjelonic, Marko and Hutter, Marco},
-  
-  title = {Design and Motion Planning for a Reconfigurable Robotic Base},
-  
-  publisher = {arXiv},
-  
-  year = {2022},
+@article{pankertDesignMotionPlanning2022,
+	title = {Design and {Motion} {Planning} for a {Reconfigurable} {Robotic} {Base}},
+	volume = {7},
+	issn = {2377-3766},
+	doi = {10.1109/LRA.2022.3189166},
+	number = {4},
+	journal = {IEEE Robotics and Automation Letters},
+	author = {Pankert, Johannes and Valsecchi, Giorgio and Baret, Davide and Zehnder, Jon and Pietrasik, Lukasz L. and Bjelonic, Marko and Hutter, Marco},
+	month = oct,
+	year = {2022},
+	note = {Conference Name: IEEE Robotics and Automation Letters},
+	keywords = {Legged locomotion, Manipulators, Mechanism design, mobile manipulation, Navigation, Planning, robotics and automation in construction, Robots, Task analysis, Wheels, whole-body motion planning and control},
+	pages = {9012--9019}
 }
 ```
 
